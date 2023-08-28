@@ -1,4 +1,6 @@
 # company_info_parser
+![image](https://static.zachestnyibiznes.ru/images/logo_new.png)
+
 Парсер сайта zachestnyibiznes.ru. По ИНН получает: Статус, Руководителя, ОКВЭД, Номера, Почты, Сайты, Соц. сети. Актуально также для ИП.
 
 Структура `.env` файла:
