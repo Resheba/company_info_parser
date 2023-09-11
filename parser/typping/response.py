@@ -37,11 +37,11 @@ class InfoResponse:
 
 @dataclass
 class SearchIPResult:
-    id: str
-    inn: str
-    ogrn: str
-    status: str
-    full_name: str
+    id: str = None
+    inn: str = None
+    ogrn: str = None
+    status: str = None
+    full_name: str = None
         
 
 class SearchIPResponse:
@@ -85,6 +85,7 @@ class SearchULResponse:
                 inn: str = _FNS.get('ИНН')
                 full_name: str = _FNS.get('НаимЮЛПолн')
                 status: str = 'Действующий' if _FNS.get('Активность') == 1 else 'Деятельность прекращена'
+                director_full_name = None
                 
                 if directors := _FNS.get('Руководители'):
                     director_full_name: str = directors[0].get('ФИО')
