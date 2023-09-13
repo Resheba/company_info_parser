@@ -1,5 +1,7 @@
 import requests
-from requests_html import HTMLSession, Element
+from seleniumbase import DriverContext
+from requests_html import Element, HTML
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 from database.config import HEADERS, COOKIES
 from parser.typping.response import SearchIPResponse, SearchULResponse, InfoResponse
@@ -9,9 +11,8 @@ class RequestZach:
     _company_url: str = 'https://zachestnyibiznes.ru/company/ul/'
     _search_url: str = 'https://zachestnyibiznes.ru/site/get-autocomplete-api'
 
-    _js_contact_func: str = '() => { let temp = $(".hide-contact-one")[0]; if (temp) { return  $._data(temp, "events").click[0].handler.toString() } else { return null } }' #open('contact.js').read()
+    _js_contact_func: str = 'let temp = $(".hide-contact-one")[0]; if (temp) { return  $._data(temp, "events").click[0].handler.toString() } else { return null }' #open('contact.js').read()
     _contact_js_sleep: float = .5
-    _session: HTMLSession = HTMLSession()
 
     @classmethod
     def searchIP(cls, 
@@ -50,12 +51,16 @@ class RequestZach:
         '''
         url: str = cls._company_url + str(id)
 
-        with cls._session.get(url) as response:
-            response.html.render(sleep=cls._contact_js_sleep)
+        with DriverContext(headless=True) as driver:
+            driver: WebDriver
+            driver.get(url)
 
-            okved: str = cls._get_okved(response)
+            driver.sleep(cls._contact_js_sleep)
 
-            _function: str = response.html.render(script=cls._js_contact_func, reload=False)
+            html: HTML = HTML(html=driver.page_source)
+            okved: str = cls._get_okved(html)
+
+            _function: str = driver.execute_script(script=cls._js_contact_func)
 
             if _function:
                 contacts: dict = eval(_function[23:-186])
@@ -66,9 +71,9 @@ class RequestZach:
     
     @staticmethod
     def _get_okved(
-        response: requests.Response
+        html: HTML
                   ) -> str | None:
-        html_block: Element = response.html.find('div.tpanel-body', first=True)
+        html_block: Element = html.find('div.tpanel-body', first=True)
 
         html_rows: list[Element] = html_block.find('div.row')
         for row in html_rows:
