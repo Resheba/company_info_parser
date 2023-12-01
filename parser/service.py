@@ -1,6 +1,6 @@
-from parser.typping.request import RequestZach, SearchIPResponse, SearchULResponse, InfoResponse
-from parser.typping.company import Company
-from parser.typping.response import SearchIPResult, SearchULResult
+from .typping.request import RequestZach, SearchIPResponse, SearchULResponse, InfoResponse
+from .typping.company import Company
+from .typping.response import SearchIPResult, SearchULResult
 
 
 class ParserSerivce:
@@ -11,7 +11,6 @@ class ParserSerivce:
         inn: int|str
     ) -> Company | None:
         inn: str = str(inn)
-
         if len(inn) == 12:
             return cls._get_ip(inn)
         elif len(inn) == 10:
@@ -36,8 +35,16 @@ class ParserSerivce:
                 emails=ul_info.emails,
                 phones=ul_info.phones,
                 social_medias=ul_info.social_medias,
-                www=ul_info.www
+                www=ul_info.www,
+                director_inn=ul_credential.director_inn,
+                founders=ul_info.founders,
+                finance=ul_info.finance,
+                lawsuit=ul_info.lawsuit,
+                employeers=ul_info.employeers,
+                simcompanies=ul_info.simcompanies,
+                credits=ul_info.credits,
             )
+        
     @classmethod
     def _get_ip(
         cls,
@@ -57,7 +64,13 @@ class ParserSerivce:
                 emails=ip_info.emails,
                 phones=ip_info.phones,
                 social_medias=ip_info.social_medias,
-                www=ip_info.www
+                www=ip_info.www,
+                director_inn=ip_credential.inn,
+                founders=ip_info.founders,
+                finance=ip_info.finance,
+                lawsuit=ip_info.lawsuit,
+                employeers=ip_info.employeers,
+                simcompanies=ip_info.simcompanies,
             )
 
     @staticmethod
@@ -79,4 +92,3 @@ class ParserSerivce:
         for ul_credential in search_response.result:
             if ul_credential.inn == inn:
                 return ul_credential
-

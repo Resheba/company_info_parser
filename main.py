@@ -15,14 +15,14 @@ def main():
     inns: tuple[str] = DataBaseSerivce.get_inns()
 
     for inn in inns:
-        while True:
-            try:
-                processing(inn)
-                print(inn, 'COMPLATE')
-                break
-            except Exception as ex:
-                print(inn, ex)
-                time.sleep(30)
+    # while True:
+        try:
+            processing(inn)
+            print(inn, 'COMPLATE')
+        except Exception as ex:
+            print(inn, ex)
+            time.sleep(30)
+       
         
 if __name__ == '__main__':
     main()

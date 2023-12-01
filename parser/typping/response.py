@@ -1,13 +1,27 @@
 from bs4 import BeautifulSoup
 from dataclasses import dataclass
 
+from .company import Credits, Finance, Founder, LawSuit, SimCompany
+
 
 class InfoResponse:
     def __init__(self, 
                  data: dict,
-                 okved: str|int
+                 okved: str|int,
+                 founders: list[Founder],
+                 finance: Finance,
+                 lawsuit: LawSuit,
+                 employeers: str,
+                 simcompanies: list[SimCompany],
+                 credits: Credits,
                  ) -> None:
         self.okved: str|int = okved
+        self.founders: list[Founder] = founders
+        self.finance: Finance = finance
+        self.lawsuit: LawSuit = lawsuit
+        self.employeers: str = employeers
+        self.simcompanies: list[SimCompany] = simcompanies
+        self.credits: Credits = credits
 
         self.phones = self.emails = self.social_medias = self.www = list()   
     
@@ -68,6 +82,7 @@ class SearchIPResponse:
 @dataclass
 class SearchULResult(SearchIPResult):
     director_full_name: str = None
+    director_inn: str = None
 
 
 class SearchULResponse:
@@ -86,10 +101,13 @@ class SearchULResponse:
                 full_name: str = _FNS.get('НаимЮЛПолн')
                 status: str = 'Действующий' if _FNS.get('Активность') == 1 else 'Деятельность прекращена'
                 director_full_name = None
+                director_inn = None
                 
                 if directors := _FNS.get('Руководители'):
                     director_full_name: str = directors[0].get('ФИО')
+                    director_inn: str = directors[0].get('ИННФЛ')
 
-                self.result.append(SearchULResult(id, inn, ogrn, status, full_name, director_full_name))
+
+                self.result.append(SearchULResult(id, inn, ogrn, status, full_name, director_full_name, director_inn))
         else:
             self.result = None

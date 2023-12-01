@@ -1,33 +1,49 @@
 # company_info_parser
 ![image](https://static.zachestnyibiznes.ru/images/logo_new.png)
 
-Парсер сайта zachestnyibiznes.ru. По ИНН получает: Статус, Руководителя, ОКВЭД, Номера, Почты, Сайты, Соц. сети. Актуально также для ИП.
+Парсер сайта zachestnyibiznes.ru. По ИНН получает: Статус, Руководителя, ОКВЭД, Номера, Почты, Сайты, Соц. сети и иное. Актуально также для ИП.
 
 Структура `.env` файла:
 ``` bash
 # GOOGLE API
-SERVICE_ACCOUNT = { "type": "service_account", "project_id": "sheetspython-..." }
+SERVICE_ACCOUNT = {...}
 
 # Zanchesny headers
-COOKIES = {"_ym_uid": "13259636..0"}
-HEADERS = {"authority": "zachestnyib..Request"}
-
+COOKIES = {...}
+HEADERS = {...}
 
 # ID таблицы
-SHEET_KEY = 1p4DQeYbP2Iodbt24fs6DVDA1sg1UBjdTfltl-I
+SHEET_KEY = 10Cxkt-j4fQ_j...
 
 # Имя листа для записи
 LIST_WRITER_NAME = main
 # Колонки для данных
 COLUMN_NAME = 2
-COLUMN_INN_WRITE = 3
-COLUMN_STATUS = 15
-COLUMN_DIRECTOR = 16
-COLUMN_OKVED = 17
-COLUMN_PHONES = 18
-COLUMN_EMAILS = 19
-COLUMN_WWW = 20
-COLUMN_SOCIALS = 21
+COLUMN_INN_WRITE = 1
+COLUMN_STATUS = 3
+COLUMN_DIRECTOR_INN = 5
+COLUMN_DIRECTOR = 4
+COLUMN_OKVED = 6
+COLUMN_PHONES = 14
+COLUMN_EMAILS = 15
+COLUMN_WWW = 16
+COLUMN_SOCIALS = 17
+COLUMN_FOUNDER = 7
+COLUMN_FOUNDER_INN = 8
+COLUMN_FOUNDERS = 9
+COLUMN_FOUNDERS_INN = 10
+COLUMN_INCOME = 11
+COLUMN_PROFIT = 12
+COLUMN_OUTCOME = 13
+COLUMN_LAWS_COUNT = 18
+COLUMN_LAWS_CONSIDER = 19
+COLUMN_LAWS_COMPLATED = 20
+COLUMN_EMPLOYEERS = 21
+COLUMN_SIMCOMP = 25
+
+COLUMN_FSSP = 22
+COLUMN_TAXES = 23
+COLUMN_PENALTIES = 24
 
 # Имя листа для считывания 
 LIST_READ_NAME = ИНН
