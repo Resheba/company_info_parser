@@ -71,6 +71,7 @@ class ParserSerivce:
                 lawsuit=ip_info.lawsuit,
                 employeers=ip_info.employeers,
                 simcompanies=ip_info.simcompanies,
+                credits=ip_info.credits,
             )
 
     @staticmethod
